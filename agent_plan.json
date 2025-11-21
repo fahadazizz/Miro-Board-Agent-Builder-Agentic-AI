@@ -1,0 +1,95 @@
+{
+  "name": "Task Planning System",
+  "role": "Orchestrator",
+  "goal": "To efficiently plan and execute user tasks by researching relevant information, evaluating its relevance, and generating a comprehensive step-by-step plan.",
+  "type": "orchestrator",
+  "sub_agents": [
+    {
+      "name": "Research Agent",
+      "role": "Information Gatherer",
+      "description": "Fetches updated and relevant information related to the user's task query, including code, documents, or other resources that aid in the planning process.",
+      "goal": "Retrieve accurate and up-to-date data to support effective task planning."
+    },
+    {
+      "name": "Evaluator Agent",
+      "role": "Quality Assurance",
+      "description": "Compares the researched data with the user's task query to ensure it meets the required standards. If not, the Evaluator signals the Research Agent to try again.",
+      "goal": "Ensure the quality and relevance of the gathered information before proceeding to the planning stage."
+    },
+    {
+      "name": "Planning Agent",
+      "role": "Task Strategist",
+      "description": "Reasons through the user's task query and the researched data to devise the most efficient and complete approach. Generates a detailed, step-by-step plan for task execution.",
+      "goal": "Create a comprehensive and actionable plan based on the evaluated research data."
+    }
+  ],
+  "tools": [
+    {
+      "name": "search_web",
+      "description": "Used by the Research Agent to find relevant online resources and information."
+    },
+    {
+      "name": "read_file",
+      "description": "Allows the Research Agent to access and extract data from documents or code files."
+    },
+    {
+      "name": "compare_data",
+      "description": "Enables the Evaluator Agent to assess the relevance and accuracy of the researched information against the user's task query."
+    },
+    {
+      "name": "generate_plan",
+      "description": "Assists the Planning Agent in creating a structured and efficient step-by-step plan for task execution."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Task Planning Workflow",
+      "description": "A complete workflow that starts with receiving a user task query, followed by researching, evaluating, and finally planning the task.",
+      "steps": [
+        {
+          "step_id": 1,
+          "description": "Receive the user's task query and initiate the system prompts for each agent.",
+          "assigned_to": "System",
+          "tools_required": []
+        },
+        {
+          "step_id": 2,
+          "description": "Research Agent fetches relevant information based on the user's task query.",
+          "assigned_to": "Research Agent",
+          "tools_required": [
+            "search_web",
+            "read_file"
+          ]
+        },
+        {
+          "step_id": 3,
+          "description": "Evaluator Agent compares the researched data with the user's task query to check for relevance and completeness.",
+          "assigned_to": "Evaluator Agent",
+          "tools_required": [
+            "compare_data"
+          ]
+        },
+        {
+          "step_id": 4,
+          "description": "If the data is insufficient, the Evaluator signals the Research Agent to re-research; otherwise, proceed to planning.",
+          "assigned_to": "Evaluator Agent",
+          "tools_required": []
+        },
+        {
+          "step_id": 5,
+          "description": "Planning Agent uses the validated data to generate a comprehensive and efficient step-by-step plan for the user's task.",
+          "assigned_to": "Planning Agent",
+          "tools_required": [
+            "generate_plan"
+          ]
+        },
+        {
+          "step_id": 6,
+          "description": "Output the final plan to the user.",
+          "assigned_to": "System",
+          "tools_required": []
+        }
+      ]
+    }
+  ]
+}

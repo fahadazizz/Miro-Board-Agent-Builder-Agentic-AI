@@ -1,0 +1,58 @@
+{
+    "data": [
+        {
+            "id": "frame_1",
+            "type": "frame",
+            "data": {
+                "title": "Research Workflow"
+            },
+            "position": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        {
+            "id": "shape_1",
+            "type": "shape",
+            "data": {
+                "content": "Fetch Arxiv Papers"
+            },
+            "position": {
+                "x": 10,
+                "y": 10
+            },
+            "parent": {
+                "id": "frame_1"
+            }
+        },
+        {
+            "id": "shape_2",
+            "type": "shape",
+            "data": {
+                "content": "Summarize Abstracts"
+            },
+            "position": {
+                "x": 100,
+                "y": 10
+            },
+            "parent": {
+                "id": "frame_1"
+            }
+        },
+        {
+            "id": "connector_1",
+            "type": "connector",
+            "data": {
+                "content": "Next"
+            },
+            "metadata": {
+                "startItem": {
+                    "id": "shape_1"
+                },
+                "endItem": {
+                    "id": "shape_2"
+                }
+            }
+        }
+    ]
+}
