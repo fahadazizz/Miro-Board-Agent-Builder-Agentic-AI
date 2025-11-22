@@ -3,14 +3,23 @@ import requests
 from typing import TypedDict, Dict, Any, List
 from langgraph.graph import StateGraph, END
 
+import sys
+import os
+
+# Ensure local imports work when running via langgraph CLI
+current_dir = os.path.dirname(os.path.abspath(__file__))
+if current_dir not in sys.path:
+    sys.path.append(current_dir)
+
 try:
     from config import Config
     from prompts import ARCHITECT_PROMPT, WORKFLOW_PLANNER_PROMPT, DSL_GENERATOR_PROMPT
     from tools import fetch_board_info, parse_board_items, extract_json
 except ImportError:
-    from .config import Config
-    from .prompts import ARCHITECT_PROMPT, WORKFLOW_PLANNER_PROMPT, DSL_GENERATOR_PROMPT
-    from .tools import fetch_board_info, parse_board_items, extract_json
+    # Fallback if the above fails (unlikely with sys.path hack, but good for safety)
+    from src.config import Config
+    from src.prompts import ARCHITECT_PROMPT, WORKFLOW_PLANNER_PROMPT, DSL_GENERATOR_PROMPT
+    from src.tools import fetch_board_info, parse_board_items, extract_json
 
 # --- State Definition ---
 class AgentState(TypedDict):

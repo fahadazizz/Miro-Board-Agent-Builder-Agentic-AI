@@ -1,74 +1,72 @@
-# Agent System: RAGSystem
+# Agent System: RAGOrchestrator
 **Role:** Orchestrator
-**Goal:** Process user queries through a structured RAG workflow to generate accurate and refined responses.
+**Goal:** Ensure efficient processing and response generation for user queries using a specialized RAG architecture with multiple agents and tools.
 **Type:** orchestrator
 
 ## Sub-Agents
-### Main Agent
-- **Role:** Central coordinator
-- **Goal:** Manage and route user queries to appropriate components.
-- **Description:** Acts as the primary interface for user queries in the RAG system.
+### MainAgent
+- **Role:** Coordinator
+- **Goal:** Ensure efficient processing and response generation for user queries.
+- **Description:** Central agent responsible for orchestrating the overall process and delegating tasks to other sub-agents.
 
-### Query Augmentor
-- **Role:** Query enhancement
-- **Goal:** Optimize queries for more efficient and accurate retrieval.
-- **Description:** Improves user queries using various analysis techniques for better processing.
+### QueryAugmentor
+- **Role:** Query Enhancer
+- **Goal:** Improve query efficiency and accuracy by applying augmentation techniques.
+- **Description:** Enhances user queries using different query analyzer techniques for better understanding and processing.
 
-### Task Orchestrator
-- **Role:** Task decomposition
-- **Goal:** Ensure efficient task handling for comprehensive responses.
-- **Description:** Breaks down complex user queries into manageable tasks.
+### TaskOrchestrator
+- **Role:** Task Manager
+- **Goal:** Decompose complex queries into manageable tasks for streamlined processing.
+- **Description:** Breaks down user queries into smaller tasks for efficient and accurate response generation.
 
-### Retrieval Planner
-- **Role:** Retrieval strategy
-- **Goal:** Create effective retrieval strategies for each task.
-- **Description:** Develops plans for information retrieval based on tasks.
+### RetrievalPlanner
+- **Role:** Planning Agent
+- **Goal:** Create optimized plans for executing each decomposed task effectively.
+- **Description:** Generates a detailed plan for each task to guide the retrieval and processing steps.
 
-### Information Retriever
-- **Role:** Data gathering
-- **Goal:** Gather relevant information to address the user's query.
-- **Description:** Collects information using various tools based on the retrieval plan.
+### InformationRetriever
+- **Role:** Data Collector
+- **Goal:** Retrieve relevant data efficiently according to the task plan.
+- **Description:** Gathers information using various tools based on the planned tasks.
 
-### LLM Generator
-- **Role:** Response generation
-- **Goal:** Produce coherent and accurate responses to user queries.
+### LLMGenerator
+- **Role:** Response Generator
+- **Goal:** Produce accurate and contextually relevant responses to user queries.
 - **Description:** Generates responses using a large language model based on retrieved information.
 
-### Response Evaluator
-- **Role:** Response assessment
-- **Goal:** Ensure response accuracy and relevance to user needs.
-- **Description:** Evaluates the quality of LLM-generated responses against tasks.
+### ResponseEvaluator
+- **Role:** Quality Assurance
+- **Goal:** Validate response accuracy and relevance before final output.
+- **Description:** Evaluates the generated responses based on the original tasks to ensure quality.
 
-### Response Refiner
-- **Role:** Response optimization
-- **Goal:** Deliver polished and user-friendly final responses.
-- **Description:** Refines the evaluated responses for improved clarity and completeness.
-
-### Response Collector
-- **Role:** Response aggregation
-- **Goal:** Compile comprehensive information for final response generation.
-- **Description:** Gathers all task-specific responses from the database.
+### ResponseRefiner
+- **Role:** Finalizer
+- **Goal:** Polish and finalize the response for optimal user satisfaction.
+- **Description:** Refines the evaluated responses by gathering all relevant data from the database.
 
 ## Tools
-- **Query Analysis Tools**: Various techniques to analyze and enhance user queries for efficient processing.
-- **Task Decomposition Mechanism**: Breaks complex queries into smaller, manageable sub-tasks.
-- **Retrieval Planning Engine**: Generates detailed plans for information retrieval based on tasks.
-- **Information Gathering Tools**: Suite of tools used to collect data based on the retrieval plan.
-- **Response Evaluation Metrics**: Criteria and methods to assess the quality of generated responses.
+- **QueryAnalyzer**: Applies various techniques to analyze and enhance user queries for better processing.
+- **TaskDecomposer**: Breaks complex user queries into smaller, manageable tasks.
+- **PlanGenerator**: Creates a structured plan for executing each task efficiently.
+- **InformationGatheringTools**: Uses various tools to collect relevant information based on the generated plan.
+- **DatabaseStorage**: Stores step-wise responses and task-related data for retrieval and refinement.
+- **TemporaryTaskStorage**: Holds pending tasks temporarily during processing.
+- **ResponseEvaluatorTool**: Evaluates LLM-generated responses based on task requirements and quality benchmarks.
 
 ## Workflows
 ### MainWorkflow
-_End-to-end workflow for processing user queries through RAG system components._
+_End-to-end workflow for processing user queries using RAG architecture with multiple specialized agents and tools._
 
 **Steps:**
-1. **[Main Agent]** Receive user query for RAG processing
-2. **[Query Augmentor]** Augment the query using different analysis techniques for efficient processing (Tools: Query Analysis Tools)
-3. **[Task Orchestrator]** Break down the query into different tasks for efficient handling (Tools: Task Decomposition Mechanism)
-4. **[Retrieval Planner]** Generate a perfect plan for each task (Tools: Retrieval Planning Engine)
-5. **[Information Retriever]** Use different tools to gather information based on the planned retrieval strategy (Tools: Information Gathering Tools)
-6. **[System]** Store step-wise responses based on plan and task in database
-7. **[Response Collector]** Gather all responses from the database
-8. **[LLM Generator]** Generate response using LLM based on retrieved information
-9. **[Response Evaluator]** Evaluate the LLM-generated response based on the task (Tools: Response Evaluation Metrics)
-10. **[Response Refiner]** Refine the evaluated response for improved clarity and completeness
-11. **[Main Agent]** Output the final refined response to the user
+1. **[MainAgent]** Receive and analyze the user query for RAG processing
+2. **[QueryAugmentor]** Augment the query using different query analyzer techniques for efficient working (Tools: QueryAnalyzer)
+3. **[TaskOrchestrator]** Break the user query into different tasks for efficient and best response (Tools: TaskDecomposer)
+4. **[System]** Store pending tasks in temporary database (Tools: TemporaryTaskStorage)
+5. **[RetrievalPlanner]** Generate a perfect plan for each task (Tools: PlanGenerator)
+6. **[InformationRetriever]** Use different tools to gather information based on the planned tasks (Tools: InformationGatheringTools)
+7. **[System]** Store step-wise responses based on plan and task in database (Tools: DatabaseStorage)
+8. **[LLMGenerator]** Generate response using LLM based on retrieved information
+9. **[ResponseEvaluator]** Evaluate response of LLM generation based on the task (Tools: ResponseEvaluatorTool)
+10. **[ResponseRefiner]** Gather all responses from database for refinement (Tools: DatabaseStorage)
+11. **[ResponseRefiner]** Refine and finalize the response for optimal user satisfaction
+12. **[MainAgent]** Output the final response to the user

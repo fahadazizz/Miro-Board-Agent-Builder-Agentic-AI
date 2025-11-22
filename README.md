@@ -65,6 +65,11 @@ graph LR
    export MIRO_ACCESS_TOKEN="your_miro_access_token"
    export OLLAMA_BASE_URL="http://localhost:11434"
    export OLLAMA_MODEL="qwen3-coder:480b-cloud" # Or any model you have pulled
+   
+   # Optional: LangSmith Observability
+   export LANGCHAIN_TRACING_V2="true"
+   export LANGCHAIN_API_KEY="your_langsmith_api_key"
+   export LANGCHAIN_PROJECT="miro-agent-builder"
    ```
 
 2. **Ensure Ollama is running**:

@@ -11,6 +11,12 @@ class Config:
     
     TEST_BOARD_ID: Optional[str] = os.getenv("TEST_BOARD_ID")
 
+    # LangSmith Tracing
+    LANGCHAIN_TRACING_V2: str = os.getenv("LANGCHAIN_TRACING_V2", "true")
+    LANGCHAIN_ENDPOINT: str = os.getenv("LANGCHAIN_ENDPOINT", "https://api.smith.langchain.com")
+    LANGCHAIN_API_KEY: str = os.getenv("LANGCHAIN_API_KEY")
+    LANGCHAIN_PROJECT: str = os.getenv("LANGCHAIN_PROJECT", "miro-agent-builder")
+
     @staticmethod
     def validate():
         if not Config.MIRO_ACCESS_TOKEN:

@@ -1,0 +1,9 @@
+{
+    "dependencies": [
+        "."
+    ],
+    "graphs": {
+        "miro_agent": "./src/agent.py:app"
+    },
+    "env": ".env"
+}
