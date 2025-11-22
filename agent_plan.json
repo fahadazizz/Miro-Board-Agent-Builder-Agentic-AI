@@ -1,92 +1,165 @@
 {
-  "name": "Task Planning System",
+  "name": "RAG Query Processing System",
   "role": "Orchestrator",
-  "goal": "To efficiently plan and execute user tasks by researching relevant information, evaluating its relevance, and generating a comprehensive step-by-step plan.",
+  "goal": "Process user queries using RAG to retrieve and generate accurate responses",
   "type": "orchestrator",
   "sub_agents": [
     {
-      "name": "Research Agent",
-      "role": "Information Gatherer",
-      "description": "Fetches updated and relevant information related to the user's task query, including code, documents, or other resources that aid in the planning process.",
-      "goal": "Retrieve accurate and up-to-date data to support effective task planning."
+      "name": "MainAgent",
+      "role": "Coordinator",
+      "description": "Central agent that manages the overall query processing flow",
+      "goal": "Coordinate all sub-agents to process user query effectively"
     },
     {
-      "name": "Evaluator Agent",
-      "role": "Quality Assurance",
-      "description": "Compares the researched data with the user's task query to ensure it meets the required standards. If not, the Evaluator signals the Research Agent to try again.",
-      "goal": "Ensure the quality and relevance of the gathered information before proceeding to the planning stage."
+      "name": "QueryAugmentor",
+      "role": "QueryProcessor",
+      "description": "Enhances and refines user queries for better processing",
+      "goal": "Improve query quality using various analysis techniques"
     },
     {
-      "name": "Planning Agent",
-      "role": "Task Strategist",
-      "description": "Reasons through the user's task query and the researched data to devise the most efficient and complete approach. Generates a detailed, step-by-step plan for task execution.",
-      "goal": "Create a comprehensive and actionable plan based on the evaluated research data."
+      "name": "TaskOrchestrator",
+      "role": "TaskManager",
+      "description": "Breaks down queries into manageable tasks",
+      "goal": "Decompose complex queries into actionable tasks"
+    },
+    {
+      "name": "RetrievalPlanner",
+      "role": "PlanningAgent",
+      "description": "Creates retrieval plans for each task",
+      "goal": "Generate effective retrieval strategies for each task"
+    },
+    {
+      "name": "InformationRetriever",
+      "role": "RetrievalAgent",
+      "description": "Gathers information based on retrieval plans",
+      "goal": "Retrieve relevant information using various tools"
+    },
+    {
+      "name": "LLMGenerator",
+      "role": "ResponseGenerator",
+      "description": "Generates responses using retrieved information",
+      "goal": "Create accurate and comprehensive responses"
+    },
+    {
+      "name": "ResponseEvaluator",
+      "role": "QualityAssurance",
+      "description": "Evaluates the quality of generated responses",
+      "goal": "Ensure responses meet quality standards"
+    },
+    {
+      "name": "ResponseRefiner",
+      "role": "ResponseOptimizer",
+      "description": "Refines and optimizes final responses",
+      "goal": "Improve response clarity and accuracy"
+    },
+    {
+      "name": "ResponseGatherer",
+      "role": "DataCollector",
+      "description": "Collects responses from database for final processing",
+      "goal": "Aggregate all relevant information for response generation"
     }
   ],
   "tools": [
     {
-      "name": "search_web",
-      "description": "Used by the Research Agent to find relevant online resources and information."
+      "name": "query_analyzer",
+      "description": "Analyzes queries using different techniques for efficient processing"
     },
     {
-      "name": "read_file",
-      "description": "Allows the Research Agent to access and extract data from documents or code files."
+      "name": "task_breaker",
+      "description": "Breaks user queries into different tasks for efficient handling"
     },
     {
-      "name": "compare_data",
-      "description": "Enables the Evaluator Agent to assess the relevance and accuracy of the researched information against the user's task query."
+      "name": "plan_generator",
+      "description": "Generates perfect plans for each task"
     },
     {
-      "name": "generate_plan",
-      "description": "Assists the Planning Agent in creating a structured and efficient step-by-step plan for task execution."
+      "name": "information_gatherer",
+      "description": "Uses different tools to gather information based on planned strategies"
+    },
+    {
+      "name": "response_evaluator",
+      "description": "Evaluates LLM-generated responses based on assigned tasks"
     }
   ],
   "workflows": [
     {
-      "name": "Task Planning Workflow",
-      "description": "A complete workflow that starts with receiving a user task query, followed by researching, evaluating, and finally planning the task.",
+      "name": "QueryProcessingWorkflow",
+      "description": "End-to-end workflow for processing user queries using RAG",
       "steps": [
         {
           "step_id": 1,
-          "description": "Receive the user's task query and initiate the system prompts for each agent.",
-          "assigned_to": "System",
+          "description": "Receive and analyze user query for RAG processing",
+          "assigned_to": "MainAgent",
           "tools_required": []
         },
         {
           "step_id": 2,
-          "description": "Research Agent fetches relevant information based on the user's task query.",
-          "assigned_to": "Research Agent",
+          "description": "Augment and refine the query using advanced analysis techniques",
+          "assigned_to": "QueryAugmentor",
           "tools_required": [
-            "search_web",
-            "read_file"
+            "query_analyzer"
           ]
         },
         {
           "step_id": 3,
-          "description": "Evaluator Agent compares the researched data with the user's task query to check for relevance and completeness.",
-          "assigned_to": "Evaluator Agent",
+          "description": "Break down the query into manageable tasks",
+          "assigned_to": "TaskOrchestrator",
           "tools_required": [
-            "compare_data"
+            "task_breaker"
           ]
         },
         {
           "step_id": 4,
-          "description": "If the data is insufficient, the Evaluator signals the Research Agent to re-research; otherwise, proceed to planning.",
-          "assigned_to": "Evaluator Agent",
-          "tools_required": []
+          "description": "Generate retrieval plans for each task",
+          "assigned_to": "RetrievalPlanner",
+          "tools_required": [
+            "plan_generator"
+          ]
         },
         {
           "step_id": 5,
-          "description": "Planning Agent uses the validated data to generate a comprehensive and efficient step-by-step plan for the user's task.",
-          "assigned_to": "Planning Agent",
+          "description": "Retrieve information based on generated plans",
+          "assigned_to": "InformationRetriever",
           "tools_required": [
-            "generate_plan"
+            "information_gatherer"
           ]
         },
         {
           "step_id": 6,
-          "description": "Output the final plan to the user.",
+          "description": "Store step-wise responses in database based on plans and tasks",
           "assigned_to": "System",
+          "tools_required": []
+        },
+        {
+          "step_id": 7,
+          "description": "Gather all responses from database for processing",
+          "assigned_to": "ResponseGatherer",
+          "tools_required": []
+        },
+        {
+          "step_id": 8,
+          "description": "Generate final response using LLM",
+          "assigned_to": "LLMGenerator",
+          "tools_required": []
+        },
+        {
+          "step_id": 9,
+          "description": "Evaluate the quality of generated response",
+          "assigned_to": "ResponseEvaluator",
+          "tools_required": [
+            "response_evaluator"
+          ]
+        },
+        {
+          "step_id": 10,
+          "description": "Refine and optimize the final response",
+          "assigned_to": "ResponseRefiner",
+          "tools_required": []
+        },
+        {
+          "step_id": 11,
+          "description": "Deliver final response to user",
+          "assigned_to": "MainAgent",
           "tools_required": []
         }
       ]

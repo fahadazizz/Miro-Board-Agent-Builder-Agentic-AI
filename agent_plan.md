@@ -1,38 +1,74 @@
-# Agent System: Task Planning System
+# Agent System: RAG Query Processing System
 **Role:** Orchestrator
-**Goal:** To efficiently plan and execute user tasks by researching relevant information, evaluating its relevance, and generating a comprehensive step-by-step plan.
+**Goal:** Process user queries using RAG to retrieve and generate accurate responses
 **Type:** orchestrator
 
 ## Sub-Agents
-### Research Agent
-- **Role:** Information Gatherer
-- **Goal:** Retrieve accurate and up-to-date data to support effective task planning.
-- **Description:** Fetches updated and relevant information related to the user's task query, including code, documents, or other resources that aid in the planning process.
+### MainAgent
+- **Role:** Coordinator
+- **Goal:** Coordinate all sub-agents to process user query effectively
+- **Description:** Central agent that manages the overall query processing flow
 
-### Evaluator Agent
-- **Role:** Quality Assurance
-- **Goal:** Ensure the quality and relevance of the gathered information before proceeding to the planning stage.
-- **Description:** Compares the researched data with the user's task query to ensure it meets the required standards. If not, the Evaluator signals the Research Agent to try again.
+### QueryAugmentor
+- **Role:** QueryProcessor
+- **Goal:** Improve query quality using various analysis techniques
+- **Description:** Enhances and refines user queries for better processing
 
-### Planning Agent
-- **Role:** Task Strategist
-- **Goal:** Create a comprehensive and actionable plan based on the evaluated research data.
-- **Description:** Reasons through the user's task query and the researched data to devise the most efficient and complete approach. Generates a detailed, step-by-step plan for task execution.
+### TaskOrchestrator
+- **Role:** TaskManager
+- **Goal:** Decompose complex queries into actionable tasks
+- **Description:** Breaks down queries into manageable tasks
+
+### RetrievalPlanner
+- **Role:** PlanningAgent
+- **Goal:** Generate effective retrieval strategies for each task
+- **Description:** Creates retrieval plans for each task
+
+### InformationRetriever
+- **Role:** RetrievalAgent
+- **Goal:** Retrieve relevant information using various tools
+- **Description:** Gathers information based on retrieval plans
+
+### LLMGenerator
+- **Role:** ResponseGenerator
+- **Goal:** Create accurate and comprehensive responses
+- **Description:** Generates responses using retrieved information
+
+### ResponseEvaluator
+- **Role:** QualityAssurance
+- **Goal:** Ensure responses meet quality standards
+- **Description:** Evaluates the quality of generated responses
+
+### ResponseRefiner
+- **Role:** ResponseOptimizer
+- **Goal:** Improve response clarity and accuracy
+- **Description:** Refines and optimizes final responses
+
+### ResponseGatherer
+- **Role:** DataCollector
+- **Goal:** Aggregate all relevant information for response generation
+- **Description:** Collects responses from database for final processing
 
 ## Tools
-- **search_web**: Used by the Research Agent to find relevant online resources and information.
-- **read_file**: Allows the Research Agent to access and extract data from documents or code files.
-- **compare_data**: Enables the Evaluator Agent to assess the relevance and accuracy of the researched information against the user's task query.
-- **generate_plan**: Assists the Planning Agent in creating a structured and efficient step-by-step plan for task execution.
+- **query_analyzer**: Analyzes queries using different techniques for efficient processing
+- **task_breaker**: Breaks user queries into different tasks for efficient handling
+- **plan_generator**: Generates perfect plans for each task
+- **information_gatherer**: Uses different tools to gather information based on planned strategies
+- **response_evaluator**: Evaluates LLM-generated responses based on assigned tasks
 
 ## Workflows
-### Task Planning Workflow
-_A complete workflow that starts with receiving a user task query, followed by researching, evaluating, and finally planning the task._
+### QueryProcessingWorkflow
+_End-to-end workflow for processing user queries using RAG_
 
 **Steps:**
-1. **[System]** Receive the user's task query and initiate the system prompts for each agent.
-2. **[Research Agent]** Research Agent fetches relevant information based on the user's task query. (Tools: search_web, read_file)
-3. **[Evaluator Agent]** Evaluator Agent compares the researched data with the user's task query to check for relevance and completeness. (Tools: compare_data)
-4. **[Evaluator Agent]** If the data is insufficient, the Evaluator signals the Research Agent to re-research; otherwise, proceed to planning.
-5. **[Planning Agent]** Planning Agent uses the validated data to generate a comprehensive and efficient step-by-step plan for the user's task. (Tools: generate_plan)
-6. **[System]** Output the final plan to the user.
+1. **[MainAgent]** Receive and analyze user query for RAG processing
+2. **[QueryAugmentor]** Augment and refine the query using advanced analysis techniques (Tools: query_analyzer)
+3. **[TaskOrchestrator]** Break down the query into manageable tasks (Tools: task_breaker)
+4. **[RetrievalPlanner]** Generate retrieval plans for each task (Tools: plan_generator)
+5. **[InformationRetriever]** Retrieve information based on generated plans (Tools: information_gatherer)
+6. **[System]** Store step-wise responses in database based on plans and tasks
+7. **[ResponseGatherer]** Gather all responses from database for processing
+8. **[LLMGenerator]** Generate final response using LLM
+9. **[ResponseEvaluator]** Evaluate the quality of generated response (Tools: response_evaluator)
+10. **[ResponseRefiner]** Refine and optimize the final response
+11. **[MainAgent]** Deliver final response to user
