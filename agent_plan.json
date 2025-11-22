@@ -1,179 +1,183 @@
 {
-  "name": "RAGOrchestrator",
+  "name": "RAGSystem",
   "role": "Orchestrator",
-  "goal": "Ensure efficient processing and response generation for user queries using a specialized RAG architecture with multiple agents and tools.",
+  "goal": "To orchestrate the interaction between all agents and ensure smooth execution of tasks in a Retrieval-Augmented Generation system.",
   "type": "orchestrator",
   "sub_agents": [
     {
-      "name": "MainAgent",
-      "role": "Coordinator",
-      "description": "Central agent responsible for orchestrating the overall process and delegating tasks to other sub-agents.",
-      "goal": "Ensure efficient processing and response generation for user queries."
+      "name": "Main Agent",
+      "role": "Central coordinator",
+      "description": "Acts as the primary agent that manages and coordinates the overall workflow of the RAG system.",
+      "goal": "To orchestrate the interaction between all other agents and ensure smooth execution of tasks."
     },
     {
-      "name": "QueryAugmentor",
-      "role": "Query Enhancer",
-      "description": "Enhances user queries using different query analyzer techniques for better understanding and processing.",
-      "goal": "Improve query efficiency and accuracy by applying augmentation techniques."
+      "name": "Query Augmentor",
+      "role": "Query enhancement",
+      "description": "Enhances user queries using different query analysis techniques for efficient processing.",
+      "goal": "Improve query understanding and efficiency by applying augmentation methods."
     },
     {
-      "name": "TaskOrchestrator",
-      "role": "Task Manager",
-      "description": "Breaks down user queries into smaller tasks for efficient and accurate response generation.",
-      "goal": "Decompose complex queries into manageable tasks for streamlined processing."
+      "name": "Task Orchestrator",
+      "role": "Task decomposition",
+      "description": "Breaks down user queries into smaller, manageable tasks for efficient handling.",
+      "goal": "Ensure optimal task distribution and execution for best response generation."
     },
     {
-      "name": "RetrievalPlanner",
-      "role": "Planning Agent",
-      "description": "Generates a detailed plan for each task to guide the retrieval and processing steps.",
-      "goal": "Create optimized plans for executing each decomposed task effectively."
+      "name": "Retrieval Planner",
+      "role": "Planning retrieval tasks",
+      "description": "Generates a perfect plan for each task related to information retrieval.",
+      "goal": "Create effective plans to guide the information retrieval process."
     },
     {
-      "name": "InformationRetriever",
-      "role": "Data Collector",
-      "description": "Gathers information using various tools based on the planned tasks.",
-      "goal": "Retrieve relevant data efficiently according to the task plan."
+      "name": "Information Retriever",
+      "role": "Data gathering",
+      "description": "Uses various tools to gather information based on the planned retrieval strategy.",
+      "goal": "Collect relevant data efficiently according to the generated plan."
     },
     {
-      "name": "LLMGenerator",
-      "role": "Response Generator",
+      "name": "LLM Generator",
+      "role": "Response generation",
       "description": "Generates responses using a large language model based on retrieved information.",
-      "goal": "Produce accurate and contextually relevant responses to user queries."
+      "goal": "Produce accurate and contextually appropriate answers to user queries."
     },
     {
-      "name": "ResponseEvaluator",
-      "role": "Quality Assurance",
-      "description": "Evaluates the generated responses based on the original tasks to ensure quality.",
-      "goal": "Validate response accuracy and relevance before final output."
+      "name": "Response Evaluator",
+      "role": "Response assessment",
+      "description": "Evaluates the quality of LLM-generated responses based on specific tasks.",
+      "goal": "Ensure that the generated responses meet the required standards and accuracy."
     },
     {
-      "name": "ResponseRefiner",
-      "role": "Finalizer",
-      "description": "Refines the evaluated responses by gathering all relevant data from the database.",
-      "goal": "Polish and finalize the response for optimal user satisfaction."
+      "name": "Response Refiner",
+      "role": "Response improvement",
+      "description": "Refines and polishes the final response before delivering it to the user.",
+      "goal": "Enhance the clarity, coherence, and relevance of the output."
+    },
+    {
+      "name": "Response Gatherer",
+      "role": "Data aggregation",
+      "description": "Gathers all partial responses from the database to form a complete answer.",
+      "goal": "Compile step-wise responses stored in the database into a unified output."
     }
   ],
   "tools": [
     {
-      "name": "QueryAnalyzer",
-      "description": "Applies various techniques to analyze and enhance user queries for better processing."
+      "name": "Query Analyzer",
+      "description": "Applies various techniques to analyze and understand user queries more effectively."
     },
     {
-      "name": "TaskDecomposer",
-      "description": "Breaks complex user queries into smaller, manageable tasks."
+      "name": "Task Decomposer",
+      "description": "Breaks complex user queries into simpler, actionable tasks."
     },
     {
-      "name": "PlanGenerator",
-      "description": "Creates a structured plan for executing each task efficiently."
+      "name": "Retrieval Strategy Planner",
+      "description": "Develops detailed plans for retrieving information based on individual tasks."
     },
     {
-      "name": "InformationGatheringTools",
-      "description": "Uses various tools to collect relevant information based on the generated plan."
+      "name": "Multi-tool Information Retriever",
+      "description": "Utilizes different tools to collect information as per the planned retrieval strategy."
     },
     {
-      "name": "DatabaseStorage",
-      "description": "Stores step-wise responses and task-related data for retrieval and refinement."
+      "name": "LLM Response Generator",
+      "description": "Generates natural language responses using a large language model."
     },
     {
-      "name": "TemporaryTaskStorage",
-      "description": "Holds pending tasks temporarily during processing."
+      "name": "Response Evaluator",
+      "description": "Assesses the relevance and correctness of generated responses against the original task."
     },
     {
-      "name": "ResponseEvaluatorTool",
-      "description": "Evaluates LLM-generated responses based on task requirements and quality benchmarks."
+      "name": "Response Aggregator",
+      "description": "Collects and integrates partial responses stored in the database."
     }
   ],
   "workflows": [
     {
       "name": "MainWorkflow",
-      "description": "End-to-end workflow for processing user queries using RAG architecture with multiple specialized agents and tools.",
+      "description": "End-to-end workflow for processing user queries through a RAG system with multiple specialized agents and tools.",
       "steps": [
         {
           "step_id": 1,
           "description": "Receive and analyze the user query for RAG processing",
-          "assigned_to": "MainAgent",
+          "assigned_to": "Main Agent",
           "tools_required": []
         },
         {
           "step_id": 2,
-          "description": "Augment the query using different query analyzer techniques for efficient working",
-          "assigned_to": "QueryAugmentor",
+          "description": "Enhance the user query using different query analysis techniques",
+          "assigned_to": "Query Augmentor",
           "tools_required": [
-            "QueryAnalyzer"
+            "Query Analyzer"
           ]
         },
         {
           "step_id": 3,
-          "description": "Break the user query into different tasks for efficient and best response",
-          "assigned_to": "TaskOrchestrator",
+          "description": "Break down the enhanced query into manageable tasks",
+          "assigned_to": "Task Orchestrator",
           "tools_required": [
-            "TaskDecomposer"
+            "Task Decomposer"
           ]
         },
         {
           "step_id": 4,
           "description": "Store pending tasks in temporary database",
           "assigned_to": "System",
-          "tools_required": [
-            "TemporaryTaskStorage"
-          ]
+          "tools_required": []
         },
         {
           "step_id": 5,
-          "description": "Generate a perfect plan for each task",
-          "assigned_to": "RetrievalPlanner",
+          "description": "Generate a perfect retrieval plan for each task",
+          "assigned_to": "Retrieval Planner",
           "tools_required": [
-            "PlanGenerator"
+            "Retrieval Strategy Planner"
           ]
         },
         {
           "step_id": 6,
-          "description": "Use different tools to gather information based on the planned tasks",
-          "assigned_to": "InformationRetriever",
+          "description": "Gather information using different tools based on the retrieval plan",
+          "assigned_to": "Information Retriever",
           "tools_required": [
-            "InformationGatheringTools"
+            "Multi-tool Information Retriever"
           ]
         },
         {
           "step_id": 7,
-          "description": "Store step-wise responses based on plan and task in database",
+          "description": "Store step-wise responses in database based on plan and task",
           "assigned_to": "System",
-          "tools_required": [
-            "DatabaseStorage"
-          ]
-        },
-        {
-          "step_id": 8,
-          "description": "Generate response using LLM based on retrieved information",
-          "assigned_to": "LLMGenerator",
           "tools_required": []
         },
         {
-          "step_id": 9,
-          "description": "Evaluate response of LLM generation based on the task",
-          "assigned_to": "ResponseEvaluator",
+          "step_id": 8,
+          "description": "Gather all partial responses from database",
+          "assigned_to": "Response Gatherer",
           "tools_required": [
-            "ResponseEvaluatorTool"
+            "Response Aggregator"
+          ]
+        },
+        {
+          "step_id": 9,
+          "description": "Generate response using LLM based on retrieved information",
+          "assigned_to": "LLM Generator",
+          "tools_required": [
+            "LLM Response Generator"
           ]
         },
         {
           "step_id": 10,
-          "description": "Gather all responses from database for refinement",
-          "assigned_to": "ResponseRefiner",
+          "description": "Evaluate LLM-generated response based on the original task",
+          "assigned_to": "Response Evaluator",
           "tools_required": [
-            "DatabaseStorage"
+            "Response Evaluator"
           ]
         },
         {
           "step_id": 11,
-          "description": "Refine and finalize the response for optimal user satisfaction",
-          "assigned_to": "ResponseRefiner",
+          "description": "Refine and polish the final response",
+          "assigned_to": "Response Refiner",
           "tools_required": []
         },
         {
           "step_id": 12,
-          "description": "Output the final response to the user",
-          "assigned_to": "MainAgent",
+          "description": "Deliver the final response to the user",
+          "assigned_to": "Main Agent",
           "tools_required": []
         }
       ]

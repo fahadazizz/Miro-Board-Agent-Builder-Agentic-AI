@@ -24,10 +24,14 @@ def main():
     Config.validate()
     
     # Set LangSmith Environment Variables
-    os.environ["LANGCHAIN_TRACING_V2"] = Config.LANGCHAIN_TRACING_V2
-    os.environ["LANGCHAIN_ENDPOINT"] = Config.LANGCHAIN_ENDPOINT
-    os.environ["LANGCHAIN_API_KEY"] = Config.LANGCHAIN_API_KEY
-    os.environ["LANGCHAIN_PROJECT"] = Config.LANGCHAIN_PROJECT
+    if Config.LANGCHAIN_TRACING_V2:
+        os.environ["LANGCHAIN_TRACING_V2"] = Config.LANGCHAIN_TRACING_V2
+    if Config.LANGCHAIN_ENDPOINT:
+        os.environ["LANGCHAIN_ENDPOINT"] = Config.LANGCHAIN_ENDPOINT
+    if Config.LANGCHAIN_API_KEY:
+        os.environ["LANGCHAIN_API_KEY"] = Config.LANGCHAIN_API_KEY
+    if Config.LANGCHAIN_PROJECT:
+        os.environ["LANGCHAIN_PROJECT"] = Config.LANGCHAIN_PROJECT
     
     initial_state = {"board_url": args.url}
     result = app.invoke(initial_state)
